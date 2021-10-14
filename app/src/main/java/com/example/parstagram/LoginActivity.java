@@ -28,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPassword;
     private Button btnLogin;
     private Button btnSignup;
+    private Button btnSubmit;
+    private Button btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,15 @@ public class LoginActivity extends AppCompatActivity {
                 signupUser(username, password);
             }
         });
+        btnLogout = findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "onClick logout Button");
+                logoutUser();
+            }
+        });
+
     }
 
     private void loginUser(String username, String password) {
@@ -104,9 +115,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    private void logoutUser() {
+        Log.i(TAG, "Attempting to logout");
+        //TODO
+        ParseUser parseUser = ParseUser.getCurrentUser();
+        parseUser.logOut();
+        goLoginActivity();
+    }
+
     private void goMainActivity() {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
+    }
+    private void goLoginActivity() {
+        Intent i = new Intent(this, LoginActivity.class);
+        startActivity(i);
+        //finish();
     }
 }
